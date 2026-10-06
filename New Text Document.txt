@@ -1,0 +1,6 @@
+Step 1	Backend & Database Setup = Ek lightweight Express server aur SQLite database banayenge jisme 3 APIs hongi: register, login, aur getProfile.
+Step 2	React Setup & Routing	React app create karenge aur react-router-dom se 4 pages ka structure set karenge: / (Home), /login, /register, aur /portal.
+Step 3	Auth Context (useContext Hook)	Ek centralized Auth Context banayenge jo pooray app me track karega ki "Kaun sa user login hai?" aur token ko localStorage me save karega.
+Step 4	Forms & API Call (useState Hook + fetch)	Login aur Register page banayenge. Form inputs ko useState se control karenge aur submit pe backend API ko real request bhejenge.
+Step 5	Protected Route & Navigation (useNavigate Hook)	Security logic lagayenge: Agar koi bina login kiye /portal par jane ki koshish kare, to wo automatically /login par bhej diya jaye. Login hone ke baad automatically Portal khulega.
+Step 6	User Portal (useEffect Hook + Live Test)	Portal page khulte hi useEffect se database se us user ka personalized data (Name, Email, Profile details) fetch karke screen par dikhayenge + Logout button chalayenge.
