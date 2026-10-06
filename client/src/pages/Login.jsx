@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
-  // 1. useState: Inputs, errors aur loading sambhalne ke liye
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -12,25 +11,26 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  //2. Submit handler: Backend API ko request bhejta hai
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
+      // ✅ Pure Relative URL (Render aur Localhost dono pe 100% chalega)
       const response = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emailOrUsername, password }),
       });
+
       const data = await response.json();
+
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
-      // Backend se Token + User details mil gayi -> Context me save kiya
+
       login(data.user, data.token);
-      // User ke Portal page par redirect!
       navigate("/portal");
     } catch (err) {
       setError(err.message);
@@ -38,11 +38,12 @@ export default function Login() {
       setLoading(false);
     }
   };
-  // Demo user autofill karne ke liye shortcut
-  function handleQuickDemo() {
+
+  const handleQuickDemo = () => {
     setEmailOrUsername("rahul@test.com");
     setPassword("password123");
-  }
+  };
+
   const cardStyle = {
     maxWidth: "420px",
     margin: "40px auto",
@@ -51,6 +52,7 @@ export default function Login() {
     borderRadius: "12px",
     boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
   };
+
   const inputStyle = {
     width: "100%",
     padding: "10px 12px",
@@ -60,6 +62,7 @@ export default function Login() {
     boxSizing: "border-box",
     fontSize: "14px",
   };
+
   const buttonStyle = {
     width: "100%",
     padding: "12px",
@@ -71,6 +74,7 @@ export default function Login() {
     fontWeight: "bold",
     cursor: "pointer",
   };
+
   return (
     <div style={cardStyle}>
       <h2 style={{ textAlign: "center", marginBottom: "8px" }}>
@@ -86,6 +90,7 @@ export default function Login() {
       >
         Apna account login karke Portal me enter karein
       </p>
+
       {error && (
         <div
           style={{
@@ -100,16 +105,18 @@ export default function Login() {
           ⚠️ {error}
         </div>
       )}
+
       <form onSubmit={handleSubmit}>
         <label>Email ya Username:</label>
         <input
           type="text"
-          placeholder="e.g. rahul@test.com ya rahul123"
+          placeholder="e.g. rahul@test.com"
           value={emailOrUsername}
           onChange={(e) => setEmailOrUsername(e.target.value)}
           required
           style={inputStyle}
         />
+
         <label>Password:</label>
         <input
           type="password"
@@ -119,11 +126,12 @@ export default function Login() {
           required
           style={inputStyle}
         />
+
         <button type="submit" disabled={loading} style={buttonStyle}>
           {loading ? "Verifying with Database..." : "Login to Portal"}
         </button>
       </form>
-      {/* Quick Testing Button */}
+
       <div
         style={{
           marginTop: "20px",
@@ -148,6 +156,7 @@ export default function Login() {
           ⚡ Auto-fill Demo User (rahul@test.com)
         </button>
       </div>
+
       <p style={{ textAlign: "center", marginTop: "16px", fontSize: "14px" }}>
         Naye ho?{" "}
         <Link to="/register" style={{ color: "#2563eb", fontWeight: "bold" }}>
