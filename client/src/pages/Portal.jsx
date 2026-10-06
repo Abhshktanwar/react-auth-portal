@@ -10,7 +10,7 @@ export default function Portal() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/profile", {
+        const response = await fetch("/api/profile", {
           headers: {
             Authorization: `Bearer ${token}`, // Token pass kiya taaki backend pehchaan sake
           },

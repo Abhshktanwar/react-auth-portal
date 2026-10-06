@@ -19,7 +19,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emailOrUsername, password }),
@@ -39,10 +39,10 @@ export default function Login() {
     }
   };
   // Demo user autofill karne ke liye shortcut
-  const handleQuickDemo = () => {
+  function handleQuickDemo() {
     setEmailOrUsername("rahul@test.com");
     setPassword("password123");
-  };
+  }
   const cardStyle = {
     maxWidth: "420px",
     margin: "40px auto",
